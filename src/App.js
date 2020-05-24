@@ -1,26 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Person from './Person/person';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  name = 'Guru';
+  state = {
+    name : 'Prasada'
+  }
+  switchHandler = () => {
+    console.log('swith handler called', this.name);
+    // Dont do this : this.state.name = 'Rama';
+    // setState it will merge the changes to existing state Object
+    // and update the dom
+    this.setState({name : 'Rama'});
+  }
+
+  switchHandlerNormal(){
+    console.log('If not bind then this is undefined', this); 
+  }
+  
+  render() {
+    return (
+      <div className="App">
+        <Person age='90'>Its childredn</Person>
+        <button onClick={this.switchHandler}>Funciton</button>
+        <button onClick={this.switchHandlerNormal.bind(this)}>Normal funciton</button>
+        <p>Name from state : {this.state.name}</p>
+      </div>
+    );
+  }
+
 }
 
 export default App;
